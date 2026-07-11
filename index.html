@@ -81,6 +81,21 @@
   .hero h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.04em; line-height: 1.15; margin-bottom: 0.75rem; }
   .hero h1 em { color: var(--accent); font-style: normal; }
   .hero p { color: var(--text-mid); font-size: 0.95rem; line-height: 1.65; max-width: 560px; }
+  .hero p code, .hero-detail code {
+    font-family: 'JetBrains Mono', monospace; background: var(--surface2);
+    padding: 0.1rem 0.45rem; border-radius: 5px; color: var(--accent);
+    font-size: 0.8rem; white-space: nowrap;
+  }
+  .hero-detail {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.5rem;
+    margin-top: 0.8rem; padding-left: 0.9rem; max-width: 740px;
+    font-size: 0.8rem; color: var(--text-dim); line-height: 1.8;
+    border-left: 2px solid var(--border);
+  }
+  .hero p.hero-note {
+    margin-top: 1.3rem; padding-top: 1rem; border-top: 1px solid var(--border);
+    font-size: 0.82rem; color: var(--text-dim);
+  }
   .badge-row { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 1.2rem; }
   .badge { padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
   .section { margin-bottom: 4rem; animation: fadeUp 0.4s ease both; }
@@ -790,8 +805,11 @@
   <main id="main-content">
     <div class="hero">
       <h1>Python <em>Built-in</em><br>Reference Lengkap</h1>
-      <p>Referensi <strong>LENGKAP v6</strong> semua Python built-ins: 73 fungsi built-in, keyword, konstanta, exception lengkap (termasuk <code>SystemExit</code>, <code>KeyboardInterrupt</code>, <code>UnicodeError</code>, <code>AssertionError</code>, <code>MemoryError</code>, dan seluruh hierarki), tipe data, warning, dan dunder methods (termasuk <code>__neg__</code>, <code>__fspath__</code>, <code>__await__</code>, <code>__prepare__</code>, <code>__init_subclass__</code>, <code>__class_getitem__</code>, <code>__annotations__</code>, <code>__match_args__</code>) — lengkap dengan penjelasan Bahasa Indonesia, kegunaan nyata, dan contoh kode. v6.0: bug fixed + keyword <code>:=</code> walrus, decorator <code>@</code>, exception <code>FileNotFoundError</code>/<code>PermissionError</code>, bitwise &amp; division dunders, dan lebih. Total: <span id="hero-total">0</span> entri.</p>
+      <p>Referensi <strong>LENGKAP v6</strong> semua Python built-ins: 73 fungsi built-in, keyword, konstanta, exception lengkap, tipe data, warning, dan dunder methods — lengkap dengan penjelasan Bahasa Indonesia, kegunaan nyata, dan contoh kode.</p>
       <div class="badge-row" id="badge-row"></div>
+      <div class="hero-detail">termasuk <code>SystemExit</code> <code>KeyboardInterrupt</code> <code>UnicodeError</code> <code>AssertionError</code> <code>MemoryError</code> dan seluruh hierarki</div>
+      <div class="hero-detail">termasuk <code>__neg__</code> <code>__fspath__</code> <code>__await__</code> <code>__prepare__</code> <code>__init_subclass__</code> <code>__class_getitem__</code> <code>__annotations__</code> <code>__match_args__</code></div>
+      <p class="hero-note">v6.0: bug fixed + keyword <code>:=</code> walrus, decorator <code>@</code>, exception <code>FileNotFoundError</code>/<code>PermissionError</code>, bitwise &amp; division dunders, dan lebih. Total: <span id="hero-total">0</span> entri.</p>
     </div>
     <div class="filter-bar" id="filter-bar">
       <button class="filter-btn active" data-filter="all">Semua</button>
