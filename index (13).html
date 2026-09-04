@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Referensi LENGKAP Python built-ins: semua built-in — fungsi, keyword, konstanta, exception, tipe data, dan dunder methods — dengan penjelasan Bahasa Indonesia, badge versi Python, tombol copy, dan contoh kode.">
+<title>PyRef — Python Built-in Reference v23.0</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,800;1,400&family=Syne:wght@400;600;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;0,900;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="hide-hamburger">
+<header>
+  <button id="hamburger" aria-label="Menu" style="display:none;background:none;border:none;cursor:pointer;padding:0.3rem;color:var(--text-mid);">
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <line x1="3" y1="6" x2="19" y2="6"/><line x1="3" y1="11" x2="19" y2="11"/><line x1="3" y1="16" x2="19" y2="16"/>
+    </svg>
+  </button>
+  <div class="logo">Py<span>Ref</span></div>
+  <input type="text" id="search" placeholder="Cari built-in, keyword, exception... ( / )" autocomplete="off">
+  <div class="header-stats">Total: <span id="total-count">0</span> built-ins</div>
+  <div class="mode-tabs">
+    <button class="mode-tab" data-mode="reference" onclick="switchMode('reference',this)"><span class="tab-icon">📖</span><span class="tab-label">Referensi</span></button>
+    <button class="mode-tab active" data-mode="pemula" onclick="switchMode('pemula',this)"><span class="tab-icon">🌱</span><span class="tab-label">Mulai</span></button>
+    <button class="mode-tab" data-mode="exercise" onclick="switchMode('exercise',this)"><span class="tab-icon">🏋️</span><span class="tab-label">Latihan</span></button>
+    <button class="mode-tab" data-mode="quiz" onclick="switchMode('quiz',this)"><span class="tab-icon">❓</span><span class="tab-label">Kuis</span></button>
+    <button class="mode-tab" data-mode="project" onclick="switchMode('project',this)"><span class="tab-icon">🚀</span><span class="tab-label">Project</span></button>
+  </div>
+</header>
+<div id="sidebar-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:99;backdrop-filter:blur(2px);"></div>
+<div id="page-reference">
+<div class="layout no-sidebar">
+  <aside id="sidebar"></aside>
+  <main id="main-content">
+    <div class="hero">
+      <div class="hero-kicker">PyRef · v23.0</div>
+      <h1>Python <em>Built-in</em><br>Reference Lengkap</h1>
+      <p>Referensi <strong>LENGKAP v6</strong> semua Python built-ins: 73 fungsi built-in, keyword, konstanta, exception lengkap, tipe data, warning, dan dunder methods — lengkap dengan penjelasan Bahasa Indonesia, kegunaan nyata, dan contoh kode.</p>
+      <div class="badge-row" id="badge-row"></div>
+      <div class="hero-detail">termasuk <code>SystemExit</code> <code>KeyboardInterrupt</code> <code>UnicodeError</code> <code>AssertionError</code> <code>MemoryError</code> dan seluruh hierarki</div>
+      <div class="hero-detail">termasuk <code>__neg__</code> <code>__fspath__</code> <code>__await__</code> <code>__prepare__</code> <code>__init_subclass__</code> <code>__class_getitem__</code> <code>__annotations__</code> <code>__match_args__</code></div>
+      <p class="hero-note">v6.0: bug fixed + keyword <code>:=</code> walrus, decorator <code>@</code>, exception <code>FileNotFoundError</code>/<code>PermissionError</code>, bitwise &amp; division dunders, dan lebih. Total: <span id="hero-total">0</span> entri.</p>
+    </div>
+    <div class="filter-bar" id="filter-bar">
+      <button class="filter-btn active" data-filter="all">Semua</button>
+      <button class="filter-btn" id="btn-open-all" style="margin-left:auto;border-color:rgba(201,169,97,0.3)">▾ Buka Semua</button>
+      <button class="filter-btn" id="btn-close-all" style="border-color:rgba(201,169,97,0.3)">▴ Tutup Semua</button>
+    </div>
+    <div id="sections-container"></div>
+    <div id="no-results">
+      <div class="big">🔍</div>
+      <p>Tidak ada yang cocok dengan "<strong id="search-term"></strong>"</p>
+    </div>
+  </main>
+</div>
+</div><!-- /page-reference -->
+
+<!-- ═══════════════ PEMULA PAGE ═══════════════ -->
+<div id="page-pemula">
+<div class="pemula-page">
+  <div class="pemula-hero">
+    <h2>🌱 Panduan Mulai <em>Pemula</em></h2>
+    <p>Belum pernah coding? Tidak masalah! Ikuti panduan ini langkah demi langkah — dari instalasi Python hingga kamu bisa menulis program pertamamu sendiri. Semua dijelaskan dalam Bahasa Indonesia.</p>
+  </div>
+
+  <!-- Tab navigasi -->
+  <div class="pemula-tabs">
+    <button class="pemula-tab active" onclick="switchPemulaTab('apa',this)">🐍 Apa itu Python?</button>
+    <button class="pemula-tab" onclick="switchPemulaTab('install',this)">⚙️ Instalasi</button>
+    <button class="pemula-tab" onclick="switchPemulaTab('dasar',this)">📝 Konsep Dasar</button>
+    <button class="pemula-tab" onclick="switchPemulaTab('sintaks',this)">💻 Sintaks Penting</button>
+    <button class="pemula-tab" onclick="switchPemulaTab('roadmap',this)">🗺️ Roadmap</button>
+    <button class="pemula-tab" onclick="switchPemulaTab('cara',this)">🔍 Cara Pakai PyRef</button>
+  </div>
+
+  <!-- ═══ TAB: APA ITU PYTHON ═══ -->
+  <div id="pemula-tab-apa" class="pemula-section active">
+    <div class="pemula-card">
+      <div class="pemula-card-title"><span class="icon">🐍</span> Apa itu Python?</div>
+      <p>Python adalah bahasa pemrograman yang dirancang untuk mudah dibaca dan ditulis. Diciptakan oleh <strong>Guido van Rossum</strong> pada tahun 1991, Python kini menjadi salah satu bahasa paling populer di dunia — dipakai oleh Google, Instagram, Netflix, NASA, dan jutaan developer lainnya.</p>
+      <div class="pemula-info info">
+        <div class="pemula-info-lbl info-lbl">💡 Mengapa Python?</div>
+        Sintaksnya mirip bahasa Inggris biasa. Kamu bisa menulis program yang bekerja hanya dengan beberapa baris kode — jauh lebih sederhana dibanding bahasa lain seperti Java atau C++.
+      </div>
+    </div>
+
+    <div class="pemula-two-col">
+      <div class="pemula-card">
+        <div class="pemula-card-title"><span class="icon">✅</span> Kelebihan Python</div>
+        <div class="pemula-steps">
+          <div class="pemula-step"><div class="pemula-step-num">1</div><div class="pemula-step-body"><strong>Mudah dipelajari</strong> — Sintaks bersih, tanpa tanda kurung kurawal yang membingungkan</div></div>
+          <div class="pemula-step"><div class="pemula-step-num">2</div><div class="pemula-step-body"><strong>Serba bisa</strong> — Web, data science, AI, otomasi, game, desktop app, dan masih banyak lagi</div></div>
+          <div class="pemula-step"><div class="pemula-step-num">3</div><div class="pemula-step-body"><strong>Komunitas besar</strong> — Jutaan tutorial, library gratis, dan forum yang siap membantu</div></div>
+          <div class="pemula-step"><div class="pemula-step-num">4</div><div class="pemula-step-body"><strong>Karier menjanjikan</strong> — Python developer salah satu yang paling banyak dicari di dunia kerja</div></div>
+          <div class="pemula-step"><div class="pemula-step-num">5</div><div class="pemula-step-body"><strong>Gratis & open source</strong> — Tidak perlu bayar apapun untuk belajar dan menggunakannya</div></div>
+        </div>
+      </div>
+      <div class="pemula-card">
+        <div class="pemula-card-title"><span class="icon">🚀</span> Python Dipakai Untuk Apa?</div>
+        <div class="pemula-grid" style="grid-template-columns:1fr 1fr;gap:0.7rem;margin:0">
+          <div class="pemula-concept-card" style="padding:0.8rem">
+            <div class="pemula-concept-icon">🌐</div>
+            <div class="pemula-concept-title" style="font-size:0.8rem">Web Development</div>
+            <div class="pemula-concept-desc">Django, Flask, FastAPI</div>
+          </div>
+          <div class="pemula-concept-card" style="padding:0.8rem">
+            <div class="pemula-concept-icon">📊</div>
+            <div class="pemula-concept-title" style="font-size:0.8rem">Data Science</div>
+            <div class="pemula-concept-desc">Pandas, NumPy, Matplotlib</div>
+          </div>
+          <div class="pemula-concept-card" style="padding:0.8rem">
+            <div class="pemula-concept-icon">🤖</div>
+            <div class="pemula-concept-title" style="font-size:0.8rem">AI & Machine Learning</div>
+            <div class="pemula-concept-desc">TensorFlow, PyTorch</div>
+          </div>
+          <div class="pemula-concept-card" style="padding:0.8rem">
+            <div class="pemula-concept-icon">🤖</div>
+            <div class="pemula-concept-title" style="font-size:0.8rem">Otomasi & Script</div>
+            <div class="pemula-concept-desc">Bot, scraping, task otomatis</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pemula-card">
+      <div class="pemula-card-title"><span class="icon">👀</span> Seperti Apa Kode Python?</div>
+      <p>Ini perbandingan program sederhana "Halo, Dunia!" dalam beberapa bahasa:</p>
+      <div class="pemula-two-col">
+        <div>
+          <div class="pemula-code-lbl">🐍 Python — bersih & mudah dibaca</div>
+          <div class="pemula-code"><pre><span class="fn">print</span>(<span class="st">"Halo, Dunia!"</span>)
+nama = <span class="fn">input</span>(<span class="st">"Namamu: "</span>)
+<span class="fn">print</span>(<span class="st">f"Halo, <span class="dc">{nama}</span>!"</span>)</pre></div>
+        </div>
+        <div>
+          <div class="pemula-code-lbl">☕ Java — lebih verbose</div>
+          <div class="pemula-code"><pre><span class="kw">public class</span> <span class="cls">Main</span> {
+  <span class="kw">public static void</span> <span class="fn">main</span>(String[] args) {
+    System.out.<span class="fn">println</span>(<span class="st">"Halo, Dunia!"</span>);
+  }
+}</pre></div>
+        </div>
+      </div>
+      <div class="pemula-info tip">
+        <div class="pemula-info-lbl tip-lbl">✅ Kesimpulan</div>
+        Python jauh lebih ringkas! Tidak ada tanda titik koma (;), tidak ada kurung kurawal ({}) yang membingungkan. Fokus pada logika, bukan sintaks.
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:1.5rem">
+      <button class="quick-nav-btn" onclick="switchPemulaTab('install', document.querySelectorAll('.pemula-tab')[1])">
+        Lanjut: Cara Instalasi Python ➜
+      </button>
+    </div>
+  </div>
+
+  <!-- ═══ TAB: INSTALASI ═══ -->
+  <div id="pemula-tab-install" class="pemula-section">
+    <div class="pemula-card">
+      <div class="pemula-card-title"><span class="icon">⚙️</span> Cara Instalasi Python</div>
+      <p>Python bisa diinstal di Windows, macOS, dan Linux. Pilih sistem operasimu:</p>
+      <div class="pemula-os-tabs">
+        <button class="pemula-os-tab active" onclick="switchPemulaOS('windows',this)">🪟 Windows</button>
+        <button class="pemula-os-tab" onclick="switchPemulaOS('mac',this)">🍎 macOS</button>
+        <button class="pemula-os-tab" onclick="switchPemulaOS('linux',this)">🐧 Linux</button>
+      </div>
+
+      <div id="pemula-os-windows" class="pemula-os-content active">
+        <div class="pemula-steps">
+          <div class="pemula-step"><div class="pemula-step-num">1</div><div class="pemula-step-body">Buka browser dan pergi ke <strong>python.org/downloads</strong></div></div>
+          <div class="pemula-step"><div class="pemula-step-num">2</div><div class="pemula-step-body">Klik tombol kuning besar <strong>"Download Python 3.x.x"</strong></div></div>
+          <div class="pemula-step"><div class="pemula-step-num">3</div><div class="pemula-step-body">Jalankan file <code>.exe</code> yang diunduh. <strong>PENTING:</strong> centang <code>☑ Add Python to PATH</code> sebelum klik Install!</div></div>
+          <div class="pemula-step"><div class="pemula-step-num">4</div><div class="pemula-step-body">Tunggu proses instalasi selesai, lalu klik "Close"</div></div>
+          <div class="pemula-step"><div class="pemula-step-num">5</div><div class="pemula-step-body">Buka <strong>Command Prompt</strong> (tekan Win+R, ketik <code>cmd</code>, Enter) lalu ketik <code>python --version</code> untuk verifikasi</div></div>
+        </div>
+        <div class="pemula-code">
+          <div class="pemula-code-lbl">Verifikasi di Command Prompt:</div>
+          <pre>C:\Users\Kamu> python --version
+Python 3.12.0
+C:\Users\Kamu> python
+>>> print("Halo!")
+Halo!
+>>> exit()</pre>
+        </div>
+      </div>
+
+      <div id="pemula-os-mac" class="pemula-os-content">
+        <div class="pemula-steps">
+          <div class="pemula-step"><div class="pemula-step-num">1</div><div class="pemula-step-body">Buka <strong>Terminal</strong> (Cmd+Space, ketik Terminal)</div></div>
+          <div class="pemula-step"><div class="pemula-step-num">2</div><div class="pemula-step-body">Instal Homebrew terlebih dahulu (package manager): ketik <code>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</code></div></div>
+          <div class="pemula-step"><div class="pemula-step-num">3</div><div class="pemula-step-body">Setelah Homebrew terinstal, ketik: <code>brew install python</code></div></div>
+          <div class="pemula-step"><div class="pemula-step-num">4</div><div class="pemula-step-body">Verifikasi dengan: <code>python3 --version</code></div></div>
+        </div>
+        <div class="pemula-code">
+          <div class="pemula-code-lbl">Alternatif: Download langsung dari python.org</div>
+          <pre>$ python3 --version
+Python 3.12.0
+$ python3
+>>> print("Halo!")
+Halo!</pre>
+        </div>
+        <div class="pemula-info info"><div class="pemula-info-lbl info-lbl">ℹ️ Catatan</div>Di macOS, gunakan <code>python3</code> bukan <code>python</code> karena macOS menyertakan Python 2 secara default.</div>
+      </div>
+
+      <div id="pemula-os-linux" class="pemula-os-content">
+        <div class="pemula-steps">
+          <div class="pemula-step"><div class="pemula-step-num">1</div><div class="pemula-step-body">Python biasanya sudah terinstal di Linux. Cek dulu: <code>python3 --version</code></div></div>
+          <div class="pemula-step"><div class="pemula-step-num">2</div><div class="pemula-step-body">Jika belum ada, untuk Ubuntu/Debian: <code>sudo apt update && sudo apt install python3</code></div></div>
+          <div class="pemula-step"><div class="pemula-step-num">3</div><div class="pemula-step-body">Untuk Fedora/RHEL: <code>sudo dnf install python3</code></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pemula-card">
+      <div class="pemula-card-title"><span class="icon">✏️</span> Pilih Text Editor / IDE</div>
+      <p>Kamu butuh aplikasi untuk menulis kode. Ini rekomendasinya berdasarkan level:</p>
+      <div class="pemula-grid">
+        <div class="pemula-concept-card">
+          <div class="pemula-concept-icon">🌟</div>
+          <div class="pemula-concept-title">VS Code — Terbaik untuk Pemula</div>
+          <div class="pemula-concept-desc">Gratis, ringan, banyak ekstensi. Install ekstensi "Python" oleh Microsoft. <strong>Direkomendasikan!</strong></div>
+        </div>
+        <div class="pemula-concept-card">
+          <div class="pemula-concept-icon">🐍</div>
+          <div class="pemula-concept-title">PyCharm Community</div>
+          <div class="pemula-concept-desc">IDE khusus Python, gratis versi Community. Lebih lengkap tapi lebih berat dari VS Code.</div>
+        </div>
+        <div class="pemula-concept-card">
+          <div class="pemula-concept-icon">📓</div>
+          <div class="pemula-concept-title">Jupyter Notebook</div>
+          <div class="pemula-concept-desc">Ideal untuk data science & eksplorasi. Kode bisa dijalankan per sel. Instal dengan <code>pip install notebook</code>.</div>
+        </div>
+        <div class="pemula-concept-card">
+          <div class="pemula-concept-icon">☁️</div>
+          <div class="pemula-concept-title">Google Colab — Tanpa Install</div>
+          <div class="pemula-concept-desc">Buka <strong>colab.research.google.com</strong> — langsung coding di browser tanpa perlu install apapun!</div>
+        </div>
+      </div>
+      <div class="pemula-info tip"><div class="pemula-info-lbl tip-lbl">💡 Tips Pemula</div>Mulai dengan <strong>Google Colab</strong> jika belum mau repot instalasi, atau <strong>VS Code</strong> untuk pengalaman yang lebih nyata seperti developer profesional.</div>
+    </div>
+
+    <div class="pemula-card">
+      <div class="pemula-card-title"><span class="icon">▶️</span> Cara Menjalankan Program Python</div>
+      <div class="pemula-steps">
+        <div class="pemula-step"><div class="pemula-step-num">1</div><div class="pemula-step-body">Buat file baru, beri nama misalnya <code>halo.py</code> (selalu pakai ekstensi <code>.py</code>)</div></div>
+        <div class="pemula-step"><div class="pemula-step-num">2</div><div class="pemula-step-body">Tulis kode di dalam file tersebut</div></div>
+        <div class="pemula-step"><div class="pemula-step-num">3</div><div class="pemula-step-body">Buka terminal di folder yang sama, lalu jalankan: <code>python halo.py</code></div></div>
+      </div>
+      <div class="pemula-code">
+        <div class="pemula-code-lbl">Contoh: halo.py</div>
+        <pre><span class="fn">print</span>(<span class="st">"Halo, Dunia!"</span>)
+<span class="fn">print</span>(<span class="st">"Program Python pertamaku berhasil!"</span>)</pre>
+      </div>
+      <div class="pemula-code">
+        <div class="pemula-code-lbl">Jalankan di terminal:</div>
+        <pre>$ python halo.py
+Halo, Dunia!
+Program Python pertamaku berhasil!</pre>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:1.5rem">
+      <button class="quick-nav-btn" onclick="switchPemulaTab('dasar', document.querySelectorAll('.pemula-tab')[2])">
+        Lanjut: Konsep Dasar Python ➜
+      </button>
+    </div>
+  </div>
+
+  <!-- ═══ TAB: KONSEP DASAR ═══ -->
+  <div id="pemula-tab-dasar" class="pemula-section">
+    <div class="pemula-card">
+      <div class="pemula-card-title"><span class="icon">📦</span> Variabel & Tipe Data</div>
+      <p>Variabel adalah tempat menyimpan data. Di Python, kamu tidak perlu mendeklarasikan tipe data — Python akan menebaknya otomatis.</p>
+      <div class="pemula-code">
+        <div class="pemula-code-lbl">Tipe data dasar Python:</div>
+        <pre><span class="cm"># Teks (String)</span>
+nama = <span class="st">"Budi"</span>
+kota = <span class="st">'Jakarta'</span>
+
+<span class="cm"># Bilangan Bulat (Integer)</span>
+umur = <span class="nm">20</span>
+tahun = <span class="nm">2024</span>
+
+<span class="cm"># Bilangan Desimal (Float)</span>
+tinggi = <span class="nm">170.5</span>
+nilai = <span class="nm">9.8</span>
+
+<span class="cm"># True / False (Boolean)</span>
+sudah_makan = <span class="bl">True</span>
+hujan = <span class="bl">False</span>
+
+<span class="cm"># Cek tipe data</span>
+<span class="fn">print</span>(<span class="fn">type</span>(nama))    <span class="cm"># &lt;class 'str'&gt;</span>
+<span class="fn">print</span>(<span class="fn">type</span>(umur))    <span class="cm"># &lt;class 'int'&gt;</span>
+<span class="fn">print</span>(<span class="fn">type</span>(tinggi))  <span class="cm"># &lt;class 'float'&gt;</span></pre>
+      </div>
+      <div class="pemula-info tip"><div class="pemula-info-lbl tip-lbl">✅ Aturan Nama Variabel</div>Gunakan huruf kecil dan garis bawah: <code>nama_lengkap</code>. Tidak boleh diawali angka. Hindari kata khusus Python seperti <code>print</code>, <code>input</code>, <code>for</code>, dll.</div>
+    </div>
+
+    <div class="pemula-card">
+      <div class="pemula-card-title"><span class="icon">🖨️</span> Print & Input</div>
+      <p><code>print()</code> menampilkan teks ke layar. <code>input()</code> meminta user mengetik sesuatu.</p>
+      <div class="pemula-code">
+        <pre><span class="cm"># print() dasar</span>
+<span class="fn">print</span>(<span class="st">"Halo!"</span>)
+
+<span class="cm"># f-string — cara terbaik menggabungkan teks + variabel</span>
+nama = <span class="st">"Siti"</span>
+umur = <span class="nm">22</span>
+<span class="fn">print</span>(<span class="st">f"Nama: <span class="dc">{nama}</span>, Umur: <span class="dc">{umur}</span>"</span>)  <span class="cm"># Nama: Siti, Umur: 22</span>
+
+<span class="cm"># input() — selalu menghasilkan string!</span>
+nama = <span class="fn">input</span>(<span class="st">"Masukkan namamu: "</span>)
+umur = <span class="fn">int</span>(<span class="fn">input</span>(<span class="st">"Masukkan umur: "</span>))  <span class="cm"># konversi ke int</span>
+<span class="fn">print</span>(<span class="st">f"Halo <span class="dc">{nama}</span>, kamu berumur <span class="dc">{umur}</span> tahun!"</span>)</pre>
+      </div>
+    </div>
+
+    <div class="pemula-card">
+      <div class="pemula-card-title"><span class="icon">➗</span> Operasi Matematika</div>
+      <div class="pemula-code">
+        <pre>a = <span class="nm">10</span>
+b = <span class="nm">3</span>
+
+<span class="fn">print</span>(a + b)   <span class="cm"># 13    — Penjumlahan</span>
+<span class="fn">print</span>(a - b)   <span class="cm"># 7     — Pengurangan</span>
+<span class="fn">print</span>(a * b)   <span class="cm"># 30    — Perkalian</span>
+<span class="fn">print</span>(a / b)   <span class="cm"># 3.333 — Pembagian (selalu float)</span>
+<span class="fn">print</span>(a // b)  <span class="cm"># 3     — Pembagian bulat (floor division)</span>
+<span class="fn">print</span>(a % b)   <span class="cm"># 1     — Sisa bagi (modulo)</span>
+<span class="fn">print</span>(a ** b)  <span class="cm"># 1000  — Pangkat (10³)</span></pre>
+      </div>
+    </div>
+
+    <div class="pemula-card">
+      <div class="pemula-card-title"><span class="icon">🔀</span> Kondisi — if / elif / else</div>
+      <p>Digunakan untuk membuat keputusan: "jika ini, lakukan itu; kalau tidak, lakukan ini".</p>
+      <div class="pemula-code">
+        <pre>nilai = <span class="fn">int</span>(<span class="fn">input</span>(<span class="st">"Masukkan nilaimu: "</span>))
+
+<span class="kw">if</span> nilai >= <span class="nm">90</span>:
+    <span class="fn">print</span>(<span class="st">"🏆 Luar Biasa!"</span>)
+<span class="kw">elif</span> nilai >= <span class="nm">75</span>:
+    <span class="fn">print</span>(<span class="st">"👍 Bagus!"</span>)
+<span class="kw">elif</span> nilai >= <span class="nm">60</span>:
+    <span class="fn">print</span>(<span class="st">"😊 Cukup, terus belajar!"</span>)
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="st">"💪 Jangan menyerah, belajar lagi!"</span>)</pre>
+      </div>
+      <div class="pemula-info warning"><div class="pemula-info-lbl warning-lbl">⚠️ Perhatikan Indentasi!</div>Python menggunakan <strong>spasi/tab</strong> untuk menandai blok kode. Kode di dalam <code>if</code> harus diindentasi (biasanya 4 spasi). Ini berbeda dengan bahasa lain yang menggunakan <code>{}</code>.</div>
+    </div>
+
+    <div style="text-align:center;margin-top:1.5rem">
+      <button class="quick-nav-btn" onclick="switchPemulaTab('sintaks', document.querySelectorAll('.pemula-tab')[3])">
+        Lanjut: Sintaks Penting ➜
+      </button>
+    </div>
+  </div>
+
+  <!-- ═══ TAB: SINTAKS PENTING ═══ -->
+  <div id="pemula-tab-sintaks" class="pemula-section">
+    <div class="pemula-card">
+      <div class="pemula-card-title"><span class="icon">🔁</span> Perulangan — for & while</div>
+      <p>Perulangan digunakan untuk melakukan sesuatu berulang kali tanpa menulis kode yang sama berkali-kali.</p>
+      <div class="pemula-two-col">
+        <div>
+          <div class="pemula-code-lbl">for — diketahui berapa kali ulang</div>
+          <div class="pemula-code"><pre><span class="cm"># Hitung 1 sampai 5</span>
+<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">1</span>, <span class="nm">6</span>):
+    <span class="fn">print</span>(i)
+<span class="cm"># Output: 1 2 3 4 5</span>
+
+<span class="cm"># Loop isi list</span>
+buah = [<span class="st">"apel"</span>, <span class="st">"mangga"</span>, <span class="st">"jeruk"</span>]
+<span class="kw">for</span> b <span class="kw">in</span> buah:
+    <span class="fn">print</span>(<span class="st">f"Buah: <span class="dc">{b}</span>"</span>)</pre></div>
+        </div>
+        <div>
+          <div class="pemula-code-lbl">while — ulang selama kondisi benar</div>
+          <div class="pemula-code"><pre><span class="cm"># Hitung mundur</span>
+n = <span class="nm">5</span>
+<span class="kw">while</span> n > <span class="nm">0</span>:
+    <span class="fn">print</span>(n)
+    n -= <span class="nm">1</span>
+<span class="fn">print</span>(<span class="st">"🚀 Luncur!"</span>)
+
+<span class="cm"># Loop sampai input benar</span>
+<span class="kw">while</span> <span class="bl">True</span>:
+    jawaban = <span class="fn">input</span>(<span class="st">"Ketik 'ya': "</span>)
+    <span class="kw">if</span> jawaban == <span class="st">"ya"</span>:
+        <span class="kw">break</span>  <span class="cm"># keluar dari loop</span></pre></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pemula-card">
+      <div class="pemula-card-title"><span class="icon">📋</span> List, Tuple, Dictionary, Set</div>
+      <p>Struktur data bawaan Python untuk menyimpan kumpulan nilai.</p>
+      <div class="pemula-code">
+        <pre><span class="cm"># LIST — urutan yang bisa diubah, pakai []</span>
+buah = [<span class="st">"apel"</span>, <span class="st">"mangga"</span>, <span class="st">"jeruk"</span>]
+buah.<span class="fn">append</span>(<span class="st">"durian"</span>)   <span class="cm"># tambah di akhir</span>
+<span class="fn">print</span>(buah[<span class="nm">0</span>])           <span class="cm"># "apel" (index mulai dari 0)</span>
+
+<span class="cm"># TUPLE — urutan yang tidak bisa diubah, pakai ()</span>
+koordinat = (<span class="nm">-6.2</span>, <span class="nm">106.8</span>)  <span class="cm"># latitude, longitude Jakarta</span>
+
+<span class="cm"># DICTIONARY — pasangan key:value, pakai {}</span>
+orang = {
+    <span class="st">"nama"</span>: <span class="st">"Budi"</span>,
+    <span class="st">"umur"</span>: <span class="nm">25</span>,
+    <span class="st">"kota"</span>: <span class="st">"Bandung"</span>
+}
+<span class="fn">print</span>(orang[<span class="st">"nama"</span>])     <span class="cm"># "Budi"</span>
+orang[<span class="st">"umur"</span>] = <span class="nm">26</span>        <span class="cm"># update nilai</span>
+
+<span class="cm"># SET — kumpulan unik tanpa duplikat, pakai {}</span>
+angka_unik = {<span class="nm">1</span>, <span class="nm">2</span>, <span class="nm">3</span>, <span class="nm">2</span>, <span class="nm">1</span>}
+<span class="fn">print</span>(angka_unik)          <span class="cm"># {1, 2, 3}</span></pre>
+      </div>
+    </div>
+
+    <div class="pemula-card">
+      <div class="pemula-card-title"><span class="icon">🔧</span> Fungsi</div>
+      <p>Fungsi adalah blok kode yang bisa dipanggil berulang kali. Tulis sekali, pakai berkali-kali!</p>
+      <div class="pemula-code">
+        <pre><span class="cm"># Definisi fungsi dengan def</span>
+<span class="kw">def</span> <span class="fn">sapa</span>(nama):
+    <span class="fn">print</span>(<span class="st">f"Halo, <span class="dc">{nama}</span>! Selamat datang!"</span>)
+
+<span class="cm"># Memanggil fungsi</span>
+<span class="fn">sapa</span>(<span class="st">"Budi"</span>)   <span class="cm"># Halo, Budi! Selamat datang!</span>
+<span class="fn">sapa</span>(<span class="st">"Siti"</span>)   <span class="cm"># Halo, Siti! Selamat datang!</span>
+
+<span class="cm"># Fungsi dengan return value</span>
+<span class="kw">def</span> <span class="fn">luas_persegi</span>(sisi):
+    <span class="kw">return</span> sisi * sisi
+
+luas = <span class="fn">luas_persegi</span>(<span class="nm">5</span>)
+<span class="fn">print</span>(<span class="st">f"Luas: <span class="dc">{luas}</span> cm²"</span>)  <span class="cm"># Luas: 25 cm²</span>
+
+<span class="cm"># Fungsi dengan nilai default</span>
+<span class="kw">def</span> <span class="fn">salam</span>(nama, waktu=<span class="st">"pagi"</span>):
+    <span class="fn">print</span>(<span class="st">f"Selamat <span class="dc">{waktu}</span>, <span class="dc">{nama}</span>!"</span>)
+
+<span class="fn">salam</span>(<span class="st">"Roni"</span>)             <span class="cm"># Selamat pagi, Roni!</span>
+<span class="fn">salam</span>(<span class="st">"Roni"</span>, <span class="st">"malam"</span>)   <span class="cm"># Selamat malam, Roni!</span></pre>
+      </div>
+    </div>
+
+    <div class="pemula-card">
+      <div class="pemula-card-title"><span class="icon">💥</span> Penanganan Error — try / except</div>
+      <p>Program bisa crash jika ada error. Gunakan <code>try/except</code> untuk menanganinya dengan elegan.</p>
+      <div class="pemula-code">
+        <pre><span class="kw">try</span>:
+    angka = <span class="fn">int</span>(<span class="fn">input</span>(<span class="st">"Masukkan angka: "</span>))
+    hasil = <span class="nm">100</span> / angka
+    <span class="fn">print</span>(<span class="st">f"100 / <span class="dc">{angka}</span> = <span class="dc">{hasil}</span>"</span>)
+<span class="kw">except</span> <span class="ex">ValueError</span>:
+    <span class="fn">print</span>(<span class="st">"❌ Bukan angka yang valid!"</span>)
+<span class="kw">except</span> <span class="ex">ZeroDivisionError</span>:
+    <span class="fn">print</span>(<span class="st">"❌ Tidak bisa dibagi nol!"</span>)
+<span class="kw">finally</span>:
+    <span class="fn">print</span>(<span class="st">"Program selesai."</span>)  <span class="cm"># selalu dijalankan</span></pre>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:1.5rem">
+      <button class="quick-nav-btn" onclick="switchPemulaTab('roadmap', document.querySelectorAll('.pemula-tab')[4])">
+        Lanjut: Roadmap Belajar ➜
+      </button>
+    </div>
+  </div>
+
+  <!-- ═══ TAB: ROADMAP ═══ -->
+  <div id="pemula-tab-roadmap" class="pemula-section">
+    <div class="pemula-card">
+      <div class="pemula-card-title"><span class="icon">🗺️</span> Roadmap Belajar Python</div>
+      <p>Ikuti jalur belajar ini secara bertahap. Jangan terburu-buru — pahami dulu setiap topik sebelum lanjut ke berikutnya.</p>
+
+      <div class="pemula-roadmap" style="margin-top:1.5rem">
+        <div class="pemula-road-item">
+          <div class="pemula-road-dot done">✅</div>
+          <div class="pemula-road-content">
+            <div class="pemula-road-title">Tahap 1 — Dasar-Dasar (1–2 minggu)</div>
+            <div class="pemula-road-desc">Instalasi Python, variabel, tipe data, print/input, operasi matematika, kondisi if/elif/else, dan perulangan for/while.</div>
+            <div class="pemula-road-chips">
+              <span class="pemula-road-chip">print()</span><span class="pemula-road-chip">input()</span><span class="pemula-road-chip">int()</span><span class="pemula-road-chip">str()</span><span class="pemula-road-chip">if/else</span><span class="pemula-road-chip">for/while</span>
+            </div>
+          </div>
+        </div>
+        <div class="pemula-road-item">
+          <div class="pemula-road-dot current">📝</div>
+          <div class="pemula-road-content">
+            <div class="pemula-road-title">Tahap 2 — Struktur Data (1–2 minggu)</div>
+            <div class="pemula-road-desc">List, tuple, dictionary, set. Cara menyimpan dan mengolah kumpulan data.</div>
+            <div class="pemula-road-chips">
+              <span class="pemula-road-chip">list</span><span class="pemula-road-chip">dict</span><span class="pemula-road-chip">tuple</span><span class="pemula-road-chip">set</span><span class="pemula-road-chip">len()</span><span class="pemula-road-chip">range()</span>
+            </div>
+          </div>
+        </div>
+        <div class="pemula-road-item">
+          <div class="pemula-road-dot">3</div>
+          <div class="pemula-road-content">
+            <div class="pemula-road-title">Tahap 3 — Fungsi & Modul (1–2 minggu)</div>
+            <div class="pemula-road-desc">Membuat fungsi sendiri, parameter, return value, lambda, dan menggunakan modul bawaan seperti math, random, datetime.</div>
+            <div class="pemula-road-chips">
+              <span class="pemula-road-chip">def</span><span class="pemula-road-chip">return</span><span class="pemula-road-chip">lambda</span><span class="pemula-road-chip">import</span><span class="pemula-road-chip">map()</span><span class="pemula-road-chip">filter()</span>
+            </div>
+          </div>
+        </div>
+        <div class="pemula-road-item">
+          <div class="pemula-road-dot">4</div>
+          <div class="pemula-road-content">
+            <div class="pemula-road-title">Tahap 4 — File & Error Handling (1 minggu)</div>
+            <div class="pemula-road-desc">Membaca dan menulis file, penanganan exception dengan try/except, membaca CSV dan JSON.</div>
+            <div class="pemula-road-chips">
+              <span class="pemula-road-chip">open()</span><span class="pemula-road-chip">try/except</span><span class="pemula-road-chip">with</span><span class="pemula-road-chip">json</span><span class="pemula-road-chip">csv</span>
+            </div>
+          </div>
+        </div>
+        <div class="pemula-road-item">
+          <div class="pemula-road-dot">5</div>
+          <div class="pemula-road-content">
+            <div class="pemula-road-title">Tahap 5 — OOP: Object Oriented Programming (2 minggu)</div>
+            <div class="pemula-road-desc">Class, object, atribut, method, inheritance. Cara berpikir seperti programmer profesional.</div>
+            <div class="pemula-road-chips">
+              <span class="pemula-road-chip">class</span><span class="pemula-road-chip">__init__</span><span class="pemula-road-chip">self</span><span class="pemula-road-chip">inheritance</span><span class="pemula-road-chip">super()</span>
+            </div>
+          </div>
+        </div>
+        <div class="pemula-road-item">
+          <div class="pemula-road-dot">6</div>
+          <div class="pemula-road-content">
+            <div class="pemula-road-title">Tahap 6 — Pilih Jalur Spesialisasi 🚀</div>
+            <div class="pemula-road-desc">Setelah menguasai dasar-dasar, pilih jalur sesuai minatmu:</div>
+            <div class="pemula-road-chips">
+              <span class="pemula-road-chip">🌐 Web: Django/Flask</span>
+              <span class="pemula-road-chip">📊 Data: Pandas/NumPy</span>
+              <span class="pemula-road-chip">🤖 AI: TensorFlow</span>
+              <span class="pemula-road-chip">🤖 Bot: Automation</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pemula-card">
+      <div class="pemula-card-title"><span class="icon">💡</span> Tips Sukses Belajar Python</div>
+      <div class="pemula-steps">
+        <div class="pemula-step">
+          <div class="pemula-step-num">1</div>
+          <div class="pemula-step-body"><strong>Coding setiap hari.</strong> Minimal 30 menit sehari lebih baik daripada 5 jam seminggu sekali. Konsistensi adalah kunci.</div>
+        </div>
+        <div class="pemula-step">
+          <div class="pemula-step-num">2</div>
+          <div class="pemula-step-body"><strong>Jangan hanya membaca — ketik kodenya!</strong> Menulis kode sendiri jauh lebih efektif daripada sekadar copy-paste.</div>
+        </div>
+        <div class="pemula-step">
+          <div class="pemula-step-num">3</div>
+          <div class="pemula-step-body"><strong>Buat project kecil.</strong> Setelah belajar sesuatu, langsung buat proyek mini. Kalkulator, to-do list, atau game tebak angka adalah contoh bagus.</div>
+        </div>
+        <div class="pemula-step">
+          <div class="pemula-step-num">4</div>
+          <div class="pemula-step-body"><strong>Jangan takut error.</strong> Error adalah guru terbaik. Baca pesan errornya, cari di Google, dan pelajari penyebabnya.</div>
+        </div>
+        <div class="pemula-step">
+          <div class="pemula-step-num">5</div>
+          <div class="pemula-step-body"><strong>Gabung komunitas.</strong> Discord Python Indonesia, Stack Overflow, Reddit r/learnpython — banyak yang siap membantu.</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:1.5rem">
+      <button class="quick-nav-btn" onclick="switchPemulaTab('cara', document.querySelectorAll('.pemula-tab')[5])">
+        Lanjut: Cara Pakai PyRef ➜
+      </button>
+    </div>
+  </div>
+
+  <!-- ═══ TAB: CARA PAKAI PYREF ═══ -->
+  <div id="pemula-tab-cara" class="pemula-section">
+    <div class="pemula-card">
+      <div class="pemula-card-title"><span class="icon">🔍</span> Cara Menggunakan PyRef</div>
+      <p>PyRef adalah referensi lengkap semua built-in Python dalam Bahasa Indonesia. Ini cara terbaik menggunakannya:</p>
+      <div class="pemula-steps">
+        <div class="pemula-step">
+          <div class="pemula-step-num">1</div>
+          <div class="pemula-step-body"><strong>Gunakan kotak pencarian</strong> di bagian atas. Ketik nama fungsi yang ingin kamu pelajari, misalnya <code>print</code>, <code>len</code>, atau <code>sorted</code>. Hasil langsung muncul saat kamu mengetik.</div>
+        </div>
+        <div class="pemula-step">
+          <div class="pemula-step-num">2</div>
+          <div class="pemula-step-body"><strong>Gunakan filter</strong> di tab Referensi untuk menyaring berdasarkan kategori: Built-in Functions, Keywords, Exceptions, Tipe Data, dan lain-lain.</div>
+        </div>
+        <div class="pemula-step">
+          <div class="pemula-step-num">3</div>
+          <div class="pemula-step-body"><strong>Klik nama fungsi</strong> untuk membuka detail lengkap: deskripsi, contoh kode, parameter, dan use case. Gunakan tombol copy untuk menyalin contoh kode.</div>
+        </div>
+        <div class="pemula-step">
+          <div class="pemula-step-num">4</div>
+          <div class="pemula-step-body"><strong>Tab Latihan 🏋️</strong> — Asah kemampuan dengan soal coding interaktif. Ada level Pemula Banget hingga Sulit.</div>
+        </div>
+        <div class="pemula-step">
+          <div class="pemula-step-num">5</div>
+          <div class="pemula-step-body"><strong>Tab Kuis ❓</strong> — Uji pemahamanmu dengan kuis pilihan ganda. Cocok untuk persiapan wawancara atau ujian.</div>
+        </div>
+        <div class="pemula-step">
+          <div class="pemula-step-num">6</div>
+          <div class="pemula-step-body"><strong>Tab Project 🚀</strong> — Terapkan ilmumu dalam mini project nyata dengan kode lengkap dan tantangan lanjutan.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pemula-card">
+      <div class="pemula-card-title"><span class="icon">⭐</span> Built-in Python yang Paling Sering Dipakai Pemula</div>
+      <p>Mulai dari sini! Pelajari fungsi-fungsi ini terlebih dahulu:</p>
+      <div class="pemula-grid">
+        <div class="pemula-concept-card" onclick="goToPemulaBuiltin('print')">
+          <div class="pemula-concept-icon">🖨️</div>
+          <div class="pemula-concept-title">print()</div>
+          <div class="pemula-concept-desc">Menampilkan output ke layar. Fungsi pertama yang semua orang pelajari.</div>
+        </div>
+        <div class="pemula-concept-card" onclick="goToPemulaBuiltin('input')">
+          <div class="pemula-concept-icon">⌨️</div>
+          <div class="pemula-concept-title">input()</div>
+          <div class="pemula-concept-desc">Menerima input dari pengguna melalui keyboard.</div>
+        </div>
+        <div class="pemula-concept-card" onclick="goToPemulaBuiltin('len')">
+          <div class="pemula-concept-icon">📏</div>
+          <div class="pemula-concept-title">len()</div>
+          <div class="pemula-concept-desc">Menghitung panjang string, list, atau koleksi lainnya.</div>
+        </div>
+        <div class="pemula-concept-card" onclick="goToPemulaBuiltin('range')">
+          <div class="pemula-concept-icon">🔢</div>
+          <div class="pemula-concept-title">range()</div>
+          <div class="pemula-concept-desc">Membuat urutan angka, paling sering dipakai dengan for loop.</div>
+        </div>
+        <div class="pemula-concept-card" onclick="goToPemulaBuiltin('int')">
+          <div class="pemula-concept-icon">🔄</div>
+          <div class="pemula-concept-title">int() / str() / float()</div>
+          <div class="pemula-concept-desc">Konversi tipe data. Wajib diketahui saat bekerja dengan input().</div>
+        </div>
+        <div class="pemula-concept-card" onclick="goToPemulaBuiltin('type')">
+          <div class="pemula-concept-icon">🏷️</div>
+          <div class="pemula-concept-title">type()</div>
+          <div class="pemula-concept-desc">Mengecek tipe data sebuah variabel. Berguna saat debugging.</div>
+        </div>
+        <div class="pemula-concept-card" onclick="goToPemulaBuiltin('sorted')">
+          <div class="pemula-concept-icon">🔤</div>
+          <div class="pemula-concept-title">sorted() / list.sort()</div>
+          <div class="pemula-concept-desc">Mengurutkan list atau iterable. Sangat sering dipakai.</div>
+        </div>
+        <div class="pemula-concept-card" onclick="goToPemulaBuiltin('enumerate')">
+          <div class="pemula-concept-icon">📋</div>
+          <div class="pemula-concept-title">enumerate()</div>
+          <div class="pemula-concept-desc">Loop dengan index sekaligus. Lebih Pythonic dari range(len(...)).</div>
+        </div>
+      </div>
+      <div class="pemula-info tip"><div class="pemula-info-lbl tip-lbl">💡 Tips</div>Klik kartu di atas untuk langsung ke halaman referensi fungsi tersebut!</div>
+    </div>
+
+    <div class="pemula-card">
+      <div class="pemula-card-title"><span class="icon">🚀</span> Siap Mulai?</div>
+      <p>Kamu sudah punya semua yang dibutuhkan! Mulai dengan langkah kecil:</p>
+      <div style="display:flex;gap:0.7rem;flex-wrap:wrap;margin-top:1rem">
+        <button class="quick-nav-btn" onclick="switchMode('reference', document.querySelector('[data-mode=reference]'))">📖 Buka Referensi</button>
+        <button class="quick-nav-btn" onclick="switchMode('exercise', document.querySelector('[data-mode=exercise]'))">🏋️ Coba Latihan</button>
+        <button class="quick-nav-btn" onclick="switchMode('project', document.querySelector('[data-mode=project]'))">🚀 Lihat Project</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div><!-- /page-pemula -->
+
+<!-- ═══════════════ EXERCISE PAGE ═══════════════ -->
+<div id="page-exercise">
+<div class="ex-page">
+  <div class="ex-hero">
+    <h2>🏋️ <em>Latihan</em> Python Built-ins</h2>
+    <p>Asah kemampuanmu dengan soal latihan praktis menggunakan Python built-in functions. Tulis kode, periksa jawaban, dan lihat solusi referensi.</p>
+    <div class="ex-progress-wrap">
+      <div class="ex-progress-label"><span>Progress Latihan</span><span id="ex-progress-text">0 / 0 selesai</span></div>
+      <div class="ex-progress-bar"><div class="ex-progress-fill" id="ex-progress-fill" style="width:0%"></div></div>
+    </div>
+  </div>
+  <div id="ex-list">
+    <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.5rem;">
+      <button class="filter-btn active" onclick="filterExercises('all',this)">Semua</button>
+      <button class="filter-btn" onclick="filterExercises('beginner',this)">🌱 Pemula Banget</button>
+      <button class="filter-btn" onclick="filterExercises('easy',this)">🟢 Mudah</button>
+      <button class="filter-btn" onclick="filterExercises('medium',this)">🟡 Menengah</button>
+      <button class="filter-btn" onclick="filterExercises('hard',this)">🔴 Sulit</button>
+    </div>
+    <div class="ex-grid" id="ex-grid"></div>
+  </div>
+  <div id="ex-detail-wrap"></div>
+</div>
+</div>
+
+<!-- ═══════════════ QUIZ PAGE ═══════════════ -->
+<div id="page-quiz">
+<div class="ex-page">
+  <div class="quiz-hero">
+    <h2>❓ <em>Kuis</em> Python Built-ins</h2>
+    <p>Uji pemahamanmu dengan soal pilihan ganda. Pilih level: <strong>🟢 Pemula</strong> (sintaks & konsep dasar), <strong>🟡 Menengah</strong> (fungsi, list, dict, OOP), atau <strong>🔴 Lanjutan</strong> (closure, decorator, generator, metaclass). Soal diacak <em>dalam</em> level yang dipilih agar tidak tercampur antara level berbeda.</p>
+    <div class="quiz-controls">
+      <select class="quiz-select" id="quiz-level" onchange="syncQuizMode()">
+        <option value="all">📚 Semua Level</option>
+        <option value="pemula">🟢 Pemula</option>
+        <option value="menengah">🟡 Menengah</option>
+        <option value="lanjutan">🔴 Lanjutan</option>
+      </select>
+      <select class="quiz-select" id="quiz-category">
+        <option value="all">Semua Kategori</option>
+        <option value="beginner">🟢 Pemula</option>
+        <option value="functions">Built-in Functions</option>
+        <option value="exceptions">Exceptions</option>
+        <option value="keywords">Keywords</option>
+        <option value="types">Tipe Data</option>
+        <option value="operators">Operators</option>
+        <option value="fileio">📁 File I/O</option>
+        <option value="collections">📦 Collections</option>
+        <option value="oop">🧱 OOP Lanjutan</option>
+        <option value="generators">⚡ Generator & Iterator</option>
+        <option value="advanced">🚀 Python Lanjutan</option>
+        <option value="datascience">📊 Data Science</option>
+        <option value="strings">📝 String Lanjutan</option>
+        <option value="itertools">🔗 Itertools</option>
+        <option value="functools">🔧 Functools</option>
+        <option value="typehints">🏷️ Type Hints</option>
+        <option value="matchcase">🔀 Match/Case</option>
+        <option value="walrus">🦦 Walrus Operator</option>
+        <option value="scope">🔍 Scope & Namespace</option>
+        <optgroup label="── Tipe Soal ──">
+        <option value="type:trace">🔍 Lacak Eksekusi</option>
+        <option value="type:fill">✏️ Isi Bagian Kosong</option>
+        <option value="type:typeof">🏷️ Tebak Tipe Data</option>
+        <option value="type:errtype">💥 Jenis Error</option>
+        <option value="type:pythonic">✨ Kode Pythonic</option>
+        </optgroup>
+      </select>
+      <select class="quiz-select" id="quiz-count">
+        <option value="5">5 Soal</option>
+        <option value="10" selected>10 Soal</option>
+        <option value="15">15 Soal</option>
+        <option value="20">20 Soal</option>
+        <option value="30">30 Soal</option>
+        <option value="9999">Semua Soal</option>
+      </select>
+      <button class="ex-btn ex-btn-primary" onclick="startQuiz()">▶ Mulai Kuis</button>
+    </div>
+  </div>
+  <div id="quiz-area">
+    <div id="quiz-question-wrap"></div>
+    <div id="quiz-score-wrap" class="quiz-score-wrap"></div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════ PROJECT PAGE ═══════════════ -->
+<div id="page-project">
+<div class="ex-page">
+  <div class="proj-hero">
+    <h2>🚀 Mini <em>Project</em> Python</h2>
+    <p>Terapkan Python built-ins dalam project nyata. Setiap project dilengkapi panduan langkah demi langkah, hal yang akan kamu pelajari, dan tantangan lanjutan.</p>
+    <div class="proj-progress-wrap">
+      <div class="proj-progress-label"><span>Progress Project</span><span id="proj-progress-text">0 / 0 selesai</span></div>
+      <div class="proj-progress-bar"><div class="proj-progress-fill" id="proj-progress-fill" style="width:0%"></div></div>
+    </div>
+  </div>
+  <div class="proj-mode-tabs">
+    <button class="proj-mode-tab active" id="pmtab-grid" onclick="switchProjMode('grid',this)">🗂️ Mini Project</button>
+    <button class="proj-mode-tab" id="pmtab-guide" onclick="switchProjMode('guide',this)">📚 Panduan Project</button>
+  </div>
+  <div id="proj-list">
+    <div class="proj-filter-bar">
+      <button class="filter-btn active" onclick="filterProjects('all',this)">Semua</button>
+      <button class="filter-btn" onclick="filterProjects('Pemula',this)">🌱 Pemula</button>
+      <button class="filter-btn" onclick="filterProjects('Menengah',this)">🟡 Menengah</button>
+      <button class="filter-btn" onclick="filterProjects('Lanjutan',this)">🔴 Lanjutan</button>
+      <button class="filter-btn" onclick="filterProjects('done',this)">✅ Selesai</button>
+      <span class="proj-count-label" id="proj-count-label"></span>
+    </div>
+    <div class="proj-grid" id="proj-grid"></div>
+  </div>
+  <div id="proj-detail-wrap"></div>
+  <div id="guide-list" style="display:none">
+    <div class="guide-grid" id="guide-grid"></div>
+  </div>
+  <div id="guide-detail-wrap"></div>
+</div>
+</div>
+
+<button id="back-to-top" title="Kembali ke atas">↑</button>
+
+<!-- ═══════ TERM GLOSSARY MODAL ═══════ -->
+<div id="term-modal-overlay" onclick="closeTermModal(event)">
+  <div id="term-modal" role="dialog" aria-modal="true">
+    <div class="term-modal-header">
+      <button class="term-modal-close" onclick="closeTermModal()" title="Tutup">✕</button>
+      <div class="term-modal-icon" id="tm-icon"></div>
+      <div class="term-modal-title" id="tm-title"></div>
+      <span class="term-modal-cat" id="tm-cat"></span>
+    </div>
+    <div class="term-modal-body">
+      <div class="term-modal-desc" id="tm-desc"></div>
+      <div class="term-modal-example" id="tm-example">
+        <div class="term-modal-ex-label">Contoh Kode</div>
+        <pre id="tm-code"></pre>
+      </div>
+      <div class="term-modal-also" id="tm-also" style="display:none">
+        <div class="term-modal-also-lbl">Lihat juga</div>
+        <div class="term-modal-also-chips" id="tm-also-chips"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>PyRef v23.0 &mdash; Python Built-in Reference &copy; 2026 &nbsp;|&nbsp; <a href="https://docs.python.org/3/library/functions.html" target="_blank">docs.python.org</a> &nbsp;|&nbsp; <span style="color:var(--accent4)">✓ v23.0: Contoh kata ungu diperkaya (closure, decorator, lambda, scope, recursion, generator, iterator, type casting) + Kuis Level 🟢🟡🔴 dengan soal baru & pengacakan per-level</span></footer>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
